@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragments/header :: head}"/>
+    <title>Reference</title>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+      <table class="table" th:object="reference">
+    <thead>
+        <tr class="table__title">
+            <th>assessment id</th>
+            <th>question id</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><p th:text="${reference.getId_first()}">assessment id</p></td>
+            <td><p th:text="${reference.getId_second()}">question id</p></td>
+        </tr>
+    </tbody>
+    </table>
+    <hr/>
+    <div class="buttons">
+        <button class="buttons__button button button__neutral" type="button">
+            <a class="button__link--woUnderscores" href="/assessments">back</a>
+        </button>
+        <button class="buttons__button button button__neutral" type="button">
+            <a class="button__link--woUnderscores" th:href="@{/assessments_questions_refs/{id}/edit(id=${reference.getId_first() + reference.getId_second()})}">Edit</a>
+        </button>
+        <div class="button__link--woUnderscores">
+            <form class="deleteForm" id="delete" th:method="DELETE" th:action="@{/assessments_questions_refs/id=${reference.getId_first() + reference.getId_second()}"></form>
+            <input class="buttons__button button button--negative" form="delete" type="submit" value="delete" />
+        </div>
+    </div>
+      <div th:replace="~{/fragments/footer :: footer}"/>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+/*body {
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    position: relative;
+    line-height: 22px;
+}
+
+!*!* https://mkyong.com/spring-boot/spring-boot-spring-security-thymeleaf-example/ *!
+h1{
+    color:#0000FF;
+}
+
+h2{
+    color:#FF0000;
+}
+
+footer{
+    margin-top:30px;
+}
+!*--*!*!
+
+.header {
+  font-size:100%;
+  font-weight:bold;
+  color:#333366;
+}
+
+.wrapper {
+    display: grid;
+}
+
+.form {
+    display: flex;
+}
+
+.link--woUnderscores {
+    text-decoration: none;
+}
+
+.table{
+    border: 1px solid #eee;
+    table-layout: fixed;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.table th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+
+.table td{
+    padding: 5px 10px;
+    border: 1px solid #eee;
+    text-align: left;
+}
+
+.table--zebra tbody tr:nth-child(odd){
+    background: #fff;
+}
+
+.table--zebra tbody tr:nth-child(even){
+    background: #F7F7F7;
+}
+
+.buttons {
+}
+
+.buttons::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.buttons--vertical::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.buttons__button--vertical {
+    margin-bottom: 5px;
+}
+
+.buttons__button--vertical:last-child {
+    margin: 0;
+}
+
+.button--after_element {
+    float: right;
+    margin-left: 5px;
+}
+
+.buttons__button {
+    float: left;
+    margin-right: 5px;
+}
+
+.buttons__button:last-child {
+    margin: 0;
+}
+
+.button {
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font: normal 15px 'PT Sans', sans-serif;
+    line-height: 20px;
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+.button--vertical {
+    display: block;
+}
+
+.button--positive {
+    background-color: rgba(71, 170, 18, 0.83);
+    color: #fff;
+}
+
+.button--positive:hover {
+    background-color: rgba(71, 170, 18, 0.41);
+    color: #fff;
+}
+
+.button--negative {
+    background-color: #ff4100;
+    color: #fff;
+}
+
+.button--negative:hover {
+    background-color: #ff7346;
+    color: #fff;
+}
+
+.button--neutral {
+    background-color: #f0f0f0;
+}
+
+.button--neutral:hover {
+    background-color: #f5f5f5;
+}
+
+.button__link--woUnderscores {
+    text-decoration: none;
+}
+
+.textBox {
+    background-color: #f0f0f0;
+    border: none;
+    font: normal 15px 'PT Sans', sans-serif;
+    line-height: 20px;
+    outline: none;
+    padding: 5px 10px;
+    resize: none;
+}
+
+.textBox:hover {
+    background-color: #f5f5f5;
+}
+
+.textBox:focus {
+    background-color: #f5f5f5;
+}
+
+.textBox--required {
+    border-right: 5px solid #ff4100;
+}
+
+.inputs{}
+
+.input{
+    -webkit-appearance: none!important;
+    border: 1px solid gray;
+    border-right: 0px;
+    outline: none;
+}
+
+.input__description{
+    -webkit-appearance: none!important;
+    color: darkblue;
+    text-align: right;
+    width: 75px;
+    border: 1px solid gray;
+    border-left: 0px;
+    margin: 0 0 0 -7px;
+    background: white;
+}
+
+.error {
+    font-size:70%;
+    color: darkred;
+}
+
+.description {
+    font-size:70%;
+    color: darkblue;
+}
+
+.inputs__input:last-child {
+    margin-bottom: 10px;
+}*/

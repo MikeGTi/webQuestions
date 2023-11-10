@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{/fragments/header :: head}"/>
+    <title>Questions</title>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+
+    <div class="container">
+        <table class="table table-striped">
+            <tbody>
+                <tr scope="row" th:each="question : ${questions}">
+                    <td>
+                        <a class="page-link" th:href="@{/questions/{que_id}(que_id=${question.getId()})}" th:text="${question.getTitle()}">Question Title</a>
+                        <!--
+                        <a class="btn btn-primary" role="button" th:href="@{/questions/{id}(id=${question.getId()})}" th:text="${question.getDifficulty()}">Question DifficultyEnum</a>
+                        <form class="form" id ="delete" th:method="DELETE" th:action="@{/questions/{id}(id=${question.getId()})}">
+                            <input class="buttons__button button button--after_element button--neutral link--woUnderscores" form="delete" type="submit" value="delete" />
+                        </form>
+                        -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-grid gap-3">
+        <div class="p-2 bg-light border">
+            <div class="btn-group" role="group" aria-label="edit">
+                <a class="btn btn-success" type="button" role="button" th:href="@{/questions/new}">New</a>
+            </div>
+        </div>
+        <div class="p-2 bg-light border">
+            <nav class="nav">
+                <div class="btn-group" role="group" aria-label="pagination group">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link active" aria-current="page" href="/questions?page1">1</a>
+                        </li>
+                        <li class="page-item" >
+                            <a class="page-link" href="/questions?page2">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="/questions?page3">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="/questions?next">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>

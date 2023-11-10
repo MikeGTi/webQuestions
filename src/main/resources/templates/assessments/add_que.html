@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <div th:replace="~{fragments/header :: head}"/>
+  <title>Update assessment</title>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+
+    <div class="container">
+      <form class="form" id="update" th:method="POST" th:action="@{/assessments/{id}(id=${assessment.getId()})}" th:object="${assessment}">
+        <input hidden class="postToPatch" type="hidden" name="_method" value="PATCH" />
+
+        <table class="table">
+          <thead>
+          <tr>
+                <th hidden>id</th>
+                <th hidden>created at</th>
+                <th>title</th>
+                <th>description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td hidden><div class="col-auto"><input hidden id="id" type="text" th:field="*{id}" /></div></td>
+              <td hidden><div class="col-auto"><input hidden id="created_at" type="text" th:field="*{createdAt}" /></div></td>
+              <td>
+                <div class="col-auto">
+                  <label class="visually-hidden" for="title">Assessment Title</label>
+                  <input class="form-control" id="title" type="text" placeholder="Any text" th:field="*{title}" />
+                  <div class="form-text" id="error_title" type="text" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" readonly="readonly">Error</div>
+
+                  <!-- hidden fields error -->
+                  <div class="form-text" id="error_id" th:if="${#fields.hasErrors('id')}" th:errors="*{id}" readonly="readonly">Error</div>
+                  <div class="form-text" id="error_created_at" th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}" readonly="readonly">Error</div>
+                </div>
+              </td>
+              <td>
+                <div class="col-auto">
+                  <label class="visually-hidden" for="description">Assessment Description</label>
+                  <input class="form-control" id="description" type="text" placeholder="Any text" th:field="*{description}" />
+                  <div class="form-text" id="error_description" type="text" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" readonly="readonly">Error</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+    <div class="edit_buttons_group">
+      <div class="p-2 bg-light border">
+        <div class="btn-group" role="group" aria-label="edit">
+          <a class="btn btn-outline-secondary" type="button" role="button" th:href="@{/assessments/{id}(id=${assessment.getId()})}">Back</a>
+          <input class="btn btn-success" form="update" type="submit" value="Update" />
+        </div>
+      </div>
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>

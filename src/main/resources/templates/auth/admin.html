@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragments/header :: head}"/>
+    <title>Users</title>
+</head>
+
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+  <div class="content__header">
+        <label class="header__title">Users</label>
+        <hr class="header__line" />
+    </div>
+
+    <div class="container">
+        <table>
+            <thead>
+            <th>id</th>
+            <th>username</th>
+            <th>password</th>
+            <th>roles</th>
+            </thead>
+            <tr th:forEach items="${allUsers}" var="user">
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.password}</td>
+                <td>
+                    <div th:forEach items="${user.roles}" var="role">${role.name}; </div>
+                </td>
+                <td>
+                    <form action="${pageContext.request.contextPath}/admin" method="post">
+                        <input type="hidden" name="userId" value="${user.id}"/>
+                        <input type="hidden" name="action" value="delete"/>
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="content__footer">
+        <div class="b-example-divider"></div>
+        <div class="footer__buttons buttons">
+            <button class="buttons__button button button--neutral" type="button" onclick="javascript:history.back()">back</button>
+        </div>
+    </div>
+    <div th:replace="~{/fragments/footer :: footer}"/>
+
+</body>
+</html>

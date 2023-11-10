@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>New question</title>
+    <div th:replace="~{/fragments/header :: head}"/>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+
+    <div class="container">
+        <form class="form" id="new" th:method="POST" th:action="@{/questions}" th:object="${question}">
+            <!--<input hidden class="postToPatch" type="hidden" name="_method" value="PATCH" />-->
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th hidden>Id</th>
+                    <th hidden>Assessment id</th>
+                    <th hidden>Created at</th>
+                    <th hidden>Answers</th>
+                    <th>Title</th>
+                    <th>Stem</th>
+                    <th>Difficulty</th>
+                    <th>Answers</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td hidden><div class="col-auto"><input hidden id="id"            type="text" th:field="*{id}" /></div></td>
+                    <td hidden><div class="col-auto"><input hidden id="assessment_id" type="text" th:field="*{assessment_id}" /></div></td>
+                    <td hidden><div class="col-auto"><input hidden id="created_at"    type="text" th:field="*{createdAt}" /></div></td>
+                    <!-- for saving any changes in question.answers field (preserve answers field also) -->
+                    <!--<td hidden><div class="col-auto"><input hidden id="question_answers" type="text"   th:field="*{answers}" /></div></td>-->
+                    <td>
+                        <div class="col-auto">
+                            <label class="visually-hidden" for="title">Question Title</label>
+                            <input class="form-control" id="title" type="text" placeholder="Any text" th:field="*{title}" />
+                            <div class="form-text alert-warning" id="error_title" type="text" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" readonly="readonly">Error</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-auto">
+                            <label class="visually-hidden" for="stem">Question Stem</label>
+                            <input class="form-control" id="stem" type="text" placeholder="Any text" th:field="*{stem}" />
+                            <div class="form-text alert-warning" id="error_stem" type="text" th:if="${#fields.hasErrors('stem')}" th:errors="*{stem}" readonly="readonly">Error</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-auto">
+                            <select class="form-select" aria-label="Difficulty selection" name="role" th:field="*{difficulty}">
+                                <option th:each="diff : ${T(ru.mboychook.webQuestions.models.DifficultyEnum).values()}"
+                                        th:text="${#strings.toLowerCase('__${diff.name}__')}"
+                                        th:value="${diff.name}">
+                                </option>
+                            </select>
+                            <div class="form-text alert-warning" id="error_difficulty" type="text" th:if="${#fields.hasErrors('difficulty')}" th:errors="*{difficulty}" readonly="readonly">Error</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="answers_list" th:if="${not #lists.isEmpty(question.answers)}">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th hidden>Id</th>
+                                    <th hidden>Question</th>
+                                    <th hidden>Created at</th>
+                                    <th>Correct</th>
+                                    <th>Answer</th>
+                                    <!--Button to Add answer list item -->
+                                    <th><button class="btn btn-outline-success" type="submit" name="addAnswer" value="true">Add</button></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <div th:each="answer, itemsStats : *{answers}">
+                                    <tr>
+                                        <td hidden><div class="col-auto"><input hidden id="answerId" type="text"        th:field="*{answers[__${itemsStats.index}__].answerId}" /></div></td>
+                                        <td hidden><div class="col-auto"><input hidden id="question" type="text"        th:field="*{answers[__${itemsStats.index}__].question}" /></div></td>
+                                        <td hidden><div class="col-auto"><input hidden id="answerCreatedAt" type="text" th:field="*{answers[__${itemsStats.index}__].answerCreatedAt}" /></div></td>
+                                        <td>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="correctAnswerCheck" th:field="*{answers[__${itemsStats.index}__].correctAnswer}">
+                                                    <label class="form-check-label" for="correctAnswerCheck"></label>
+                                                </div>
+                                                <div class="form-text alert-warning" id="error_correctAnswer" type="text" th:if="${#fields.hasErrors('answers[__${itemsStats.index}__].correctAnswer')}" th:errors="*{answers[__${itemsStats.index}__].correctAnswer}" readonly="readonly">Error</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col-auto">
+                                                <label class="visually-hidden" for="answer_stem">Answer Stem</label>
+                                                <input class="form-control" id="answer_stem" type="text" placeholder="Any text" th:field="*{answers[__${itemsStats.index}__].answerStem}" />
+                                                <div class="form-text alert-warning" id="error_answer_stem" type="text" th:if="${#fields.hasErrors('answers[__${itemsStats.index}__].answerStem')}" th:errors="*{answers[__${itemsStats.index}__].answerStem}" readonly="readonly">Error</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <!--Button to remove answer list item-->
+                                            <button class="btn btn-outline-danger" type="submit" name="removeAnswer" th:if="${__${itemsStats.index}__ > 0}" th:value="${itemsStats.index}">Del</button>
+                                        </td>
+
+                                        <!-- hidden answer fields errors -->
+                                        <div class="form-text alert-warning" id="error_answerId" th:if="${#fields.hasErrors('answers[__${itemsStats.index}__].answerId')}" th:errors="*{answers[__${itemsStats.index}__].answerId}" readonly="readonly">Error</div>
+                                        <div class="form-text alert-warning" id="error_question" th:if="${#fields.hasErrors('answers[__${itemsStats.index}__].question')}" th:errors="*{answers[__${itemsStats.index}__].question}" readonly="readonly">Error</div>
+                                        <div class="form-text alert-warning" id="error_answerCreatedAt" th:if="${#fields.hasErrors('answers[__${itemsStats.index}__].answerCreatedAt')}" th:errors="*{answers[__${itemsStats.index}__].answerCreatedAt}" readonly="readonly">Error</div>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+
+                    <!-- hidden question fields errors -->
+                    <div class="form-text alert-warning" id="error_question_id"   th:if="${#fields.hasErrors('id')}"            th:errors="*{id}" readonly="readonly">Id error</div>
+                    <div class="form-text alert-warning" id="error_assessment_id" th:if="${#fields.hasErrors('assessment_id')}" th:errors="*{assessment_id}" readonly="readonly">Assessment_id error</div>
+                    <div class="form-text alert-warning" id="error_created_at"    th:if="${#fields.hasErrors('createdAt')}"     th:errors="*{createdAt}" readonly="readonly">CreatedAt error</div>
+                    <div class="form-text alert-warning" id="error_answers"       th:if="${#fields.hasErrors('answers')}"       th:errors="*{answers}" readonly="readonly">Answers error</div>
+                </tr>
+                </tbody>
+            </table>
+            <!--<div th:if="${#fields.hasAnyErrors()}">
+                <ul><li th:each="err : ${#fields.allErrors()}" th:text="${err}" /></ul>
+            </div>-->
+        </form>
+    </div>
+    <div class="edit_buttons_group">
+        <div class="p-2 bg-light border">
+            <div class="btn-group" role="group" aria-label="edit">
+                <a class="btn btn-outline-secondary" type="button" role="button" th:href="@{/questions}">Back</a>
+                <input class="btn btn-success" form="new" type="submit" value="Create" />
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>

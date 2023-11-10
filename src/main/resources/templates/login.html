@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <div th:replace="~{fragments/header :: head}"/>
+  <title>Web Question Login</title>
+</head>
+<body>
+  <div class="container">
+    <form class="form" id ="login" th:action="@{/login}" method="POST">
+      <!-- userName or email input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="username">Username</label>
+        <input class="form-control" type="username" name="username" id="username" autofocus />
+      </div>
+
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control" type="password" name="password" id="password" />
+      </div>
+
+      <!-- 2 column grid layout for inline styling -->
+      <div class="row mb-4">
+        <div class="col d-flex justify-content-center">
+          <!-- Checkbox -->
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="login__remember" />
+            <label class="form-check-label" for="login__remember"> Remember me </label>
+          </div>
+        </div>
+
+        <!--<div class="col">
+          &lt;!&ndash; Simple link &ndash;&gt;
+          <a href="#!">Forgot password?</a>
+        </div>-->
+      </div>
+
+      <!-- Submit button -->
+      <!--<input class="buttons__button button button&#45;&#45;positive" form="login" type="submit" value="login" />-->
+      <input class="btn btn-primary btn-block mb-4" type="submit" form="login" value="Sign in" />
+
+      <!-- Register buttons -->
+      <div class="text-center">
+        <p>Not a member? <a th:href="@{/registration}">Register</a></p>
+        <!--<p>or sign up with:</p>
+        <button type="button" class="btn btn-link btn-floating mx-1">
+          <i class="fab fa-facebook-f"></i>
+        </button>
+
+        <button type="button" class="btn btn-link btn-floating mx-1">
+          <i class="fab fa-google"></i>
+        </button>
+
+        <button type="button" class="btn btn-link btn-floating mx-1">
+          <i class="fab fa-twitter"></i>
+        </button>
+
+        <button type="button" class="btn btn-link btn-floating mx-1">
+          <i class="fab fa-github"></i>
+        </button>-->
+      </div>
+    </form>
+
+  </div>
+
+  <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>

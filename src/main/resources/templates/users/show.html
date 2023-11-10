@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragments/header :: head}"/>
+    <title>User</title>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+      <div class="container">
+        <div class="fields" th:object="${user}">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th hidden>Id</th>
+                        <th hidden>Password</th>
+                        <th>Username</th>
+                        <th>E-mail</th>
+                        <th>Roles</th>
+                        <th>Created at</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <div>
+                            <td hidden><div th:text="*{id}">       Id</div></td>
+                            <td hidden><div th:text="*{password}"> Password</div></td>
+                            <td>       <div th:text="*{username}"> Username</div></td>
+                            <td>       <div th:text="*{email}">    E-mail</div></td>
+                            <td>       <div th:text="*{rolesStr}"> Roles</div></td>
+                            <td>       <div th:text="${#dates.format(user.createdAt, 'yyyy/MM/dd hh:mm:ss')}">Created at</div></td>
+                        </div>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="show_buttons_group">
+        <div class="p-2 bg-light border">
+            <div class="btn-group" role="group" aria-label="edit">
+                <a class="btn btn-outline-secondary" type="button" role="button" th:href="@{/users}">Back</a>
+                <a class="btn btn-success" type="button" role="button" th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
+                <a class="btn btn-danger"  type="button" data-bs-toggle="modal" data-bs-target="#warningModal">Delete</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal window -->
+    <div class="modal modal-warning fade in" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="warningModalLabel">Confirmation</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure?
+                </div>
+                <div class="modal-footer">
+                    <form class="form" id ="delete" th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+                        <div class="btn-group" role="group" aria-label="edit">
+                            <input class="btn btn-danger"    type="submit" form="delete" value="Delete"/>
+                            <input class="btn btn-secondary" type="button" data-bs-dismiss="modal" value="Cancel"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>

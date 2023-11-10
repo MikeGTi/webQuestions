@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragments/header :: head}"/>
+    <title>New reference</title>
+</head>
+<body>
+  <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+  <div class="content__header">
+      <label class="header__title">New Reference properties</label>
+      <hr class="header__line">
+  </div>
+
+  <form class="form" id ="new" th:method="POST" th:action="@{/references}" th:object="${reference}">
+      <table class="table">
+          <thead>
+              <tr class="table__title">
+                  <th>assessment id</th>
+                  <th>assessment title</th>
+                  <th>question title</th>
+                  <th>question id</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>
+                      <div class="updateForm__input" th:text="*{id_first}"></div>
+                      <div class="description"></div>
+                      <div class="error" th:if="${#fields.hasErrors('id_first')}" th:errors="*{id_first}">id_first error</div>
+                  </td>
+                  <td>
+                      <div class="updateForm__input" th:text="*{id_second}"></div>
+                      <div class="description"></div>
+                      <div class="error" th:if="${#fields.hasErrors('id_second')}" th:errors="*{id_second}">id_second error</div>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+      <hr/>
+      <div class="buttons">
+          <button class="buttons__button button button--neutral" type="button">
+              <a class="button__link--woUnderscores" href="/assessments_questions_refs">Back</a>
+          </button>
+          <div class="button__link--woUnderscores">
+              <input class="buttons__button button button--positive" form="new" type="submit" value="Create" />
+          </div>
+      </div>
+  </form>
+    <div th:replace="~{/fragments/footer :: footer}"/>
+
+</body>
+</html>

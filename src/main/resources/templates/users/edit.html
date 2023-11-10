@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragments/header :: head}"/>
+    <title>Update user</title>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+    
+    <div class="container">
+        <form class="form" id ="update" th:method="POST" th:action="@{/users/{id}/edit(id=${user.id})}" th:object="${user}">
+            <input hidden class="postToPatch" type="hidden" name="_method" value="PATCH" />
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th hidden>User id</th>
+                    <th hidden>Password</th>
+                    <th hidden>Created at</th>
+                    <!--<th hidden>Roles</th>-->
+                    <th>Username</th>
+                    <th>E-mail</th>
+                    <th>Roles</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td hidden><div class="col-auto"><input hidden id="user_id" type="text"   th:field="*{id}" /></div></td>
+                    <td hidden><div class="col-auto"><input hidden id="password" type="text"  th:field="*{password}" /></div></td>
+                    <td hidden><div class="col-auto"><input hidden id="createdAt" type="text" th:field="*{createdAt}" /></div></td>
+                    <!-- for saving any changes in user.roles field (preserve users field also) -->
+                    <!--<div hidden class="col-auto"><input hidden class="form-control" id="roles" type="text"   th:field="*{roles}" />Roles List</div>-->
+                    <td>
+                        <div class="col-auto">
+                            <label class="visually-hidden" for="username">Username</label>
+                            <input class="form-control" id="username" type="text" placeholder="Username" th:field="*{username}" />
+                            <div class="form-text alert-warning" id="error_username" type="text" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" readonly="readonly">Error</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-auto">
+                            <label class="visually-hidden" for="email">E-mail</label>
+                            <input class="form-control" id="email" type="text" placeholder="E-mail" th:field="*{email}" />
+                            <div class="form-text alert-warning" id="error_email" type="text" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" readonly="readonly">Error</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="roles_list" th:if="${not #lists.isEmpty(user.roles)}">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th hidden>Role id</th>
+                                    <th hidden>Users</th>
+                                    <th>Role</th>
+                                    <!--Button to Add role list item -->
+                                    <th><button class="btn btn-outline-success" type="submit" name="addRole" value="true">Add</button></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <div th:each="role, itemsStats : ${user.roles}">
+                                    <tr>
+                                        <td hidden><div class="col-auto"><input hidden id="role_id" type="text" th:field="*{roles[__${itemsStats.index}__].id}" /></div></td>
+                                        <td hidden><div class="col-auto"><input hidden id="role_user" type="text"  th:field="*{roles[__${itemsStats.index}__].users}" /></div></td>
+                                        <td>
+                                            <div class="col-auto">
+                                                <select class="form-select" aria-label="Role selection" name="role_name" th:field="*{roles[__${itemsStats.index}__].name}">
+                                                    <option th:each="roleEnum, itemsStats : ${T(ru.mboychook.webQuestions.models.RoleEnum).values()}"
+                                                            th:text="${#strings.toLowerCase('__${roleEnum.name}__')}"
+                                                            th:value="__${roleEnum.name}__">
+                                                    </option>
+                                                </select>
+                                                <div class="form-text alert-warning" id="error_roleName" type="text" th:if="${#fields.hasErrors('roles[__${itemsStats.index}__].name')}" th:errors="*{roles[__${itemsStats.index}__].name}" readonly="readonly">Error</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <!--Button to remove role list item-->
+                                            <button class="btn btn-outline-danger" type="submit" name="removeRole" th:if="${__${itemsStats.index}__ > 0}" th:value="${__${itemsStats.index}__}">Del</button>
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- hidden fields error -->
+            <div class="form-text alert-warning" id="error_user_id"    th:if="${#fields.hasErrors('id')}"         th:errors="*{id}" readonly="readonly">Error</div>
+            <div class="form-text alert-warning" id="error_password"   th:if="${#fields.hasErrors('password')}"   th:errors="*{password}" readonly="readonly">Error</div>
+            <div class="form-text alert-warning" id="error_created_at" th:if="${#fields.hasErrors('createdAt')}"  th:errors="*{createdAt}" readonly="readonly">Error</div>
+            <div class="form-text alert-warning" id="error_roles"      th:if="${#fields.hasErrors('roles')}"      th:errors="*{roles}" readonly="readonly">Error</div>
+
+            <!--<div th:if="${#fields.hasAnyErrors()}">
+                <ul><li th:each="err : ${#fields.allErrors()}" th:text="${err}" /></ul>
+            </div>-->
+        </form>
+    </div>
+
+    <div class="edit_buttons_group">
+      <div class="p-2 bg-light border">
+          <div class="btn-group" role="group" aria-label="edit">
+              <a class="btn btn-outline-secondary" type="button" role="button" th:href="@{/users/{id}(id=${user.id})}">Back</a>
+              <input class="btn btn-success" form="update" type="submit" value="Update" />
+          </div>
+      </div>
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragments/header :: head}"/>
+    <title>Users</title>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>E-mail</th>
+                <th>Roles</th>
+                <th>Created at</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr scope="row" th:each="user, itemsStats : ${users}">
+                <td>
+                    <a class="page-link"
+                       th:href="@{/users/{id}(id=${user.getId()})}"
+                       th:text="*{users[__${itemsStats.index}__].username}">
+                        User name
+                    </a>
+                </td>
+                <td>
+                    <a class="page-link"
+                       th:href="@{/users/{id}(id=${user.getId()})}"
+                       th:text="*{users[__${itemsStats.index}__].email}">
+                        User e-mail
+                    </a>
+                </td>
+                <td>
+                    <a class="page-link"
+                       th:href="@{/users/{id}(id=${user.getId()})}"
+                       th:text="*{users[__${itemsStats.index}__].rolesStr}">
+                        User roles
+                    </a>
+                </td>
+                <td>
+                    <a class="page-link"
+                       th:href="@{/users/{id}(id=${user.getId()})}"
+                       th:text="${#dates.format(users[__${itemsStats.index}__].createdAt, 'yyyy/MM/dd hh:mm:ss')}">
+                        User created at
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-grid gap-3">
+        <div class="p-2 bg-light border">
+            <div class="btn-group" role="group" aria-label="edit">
+                <a type="button" class="btn btn-success" role="button" th:href="@{/users/new}">New</a>
+            </div>
+        </div>
+        <div class="p-2 bg-light border">
+            <nav class="nav">
+                <div class="btn-group" role="group" aria-label="pagination group">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link active" aria-current="page" href="/users?page1">1</a>
+                        </li>
+                        <li class="page-item" >
+                            <a class="page-link" href="/users?page2">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="/users?page3">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="/users?next">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>

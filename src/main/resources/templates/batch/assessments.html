@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link th:href="@{/css/bootstrap.min.css?version=51}" rel="stylesheet" />
+    <link th:href="@{/css/common.css?version=51}" rel="stylesheet" />-->
+    <link th:href="@{/css/main.css?version=51}" rel="stylesheet" />
+    <link rel="icon" th:href="@{/favicon.ico}">
+    <link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png">
+    <title>Assessments batch</title>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+
+    <div class="content__header">
+        <label class="header__title">Assessments batch update DB</label>
+        <hr class="header_line">
+    </div>
+
+    <div class="buttons--vertical">
+        <button class="buttons__button--vertical button button--vertical button--neutral" type="button">
+            <a class="button__link--woUnderscores" href="/assessments">Back</a>
+        </button>
+        <button class="buttons__button--vertical button button--vertical button--negative" type="button">
+            <a class="button__link--woUnderscores" href="/batch/assessments/assessments-insert">assessments update DB</a>
+        </button>
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>

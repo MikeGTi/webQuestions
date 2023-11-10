@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <!--<link th:href="@{/css/bootstrap.min.css?version=51}" rel="stylesheet" />
+    <link th:href="@{/css/common.css?version=51}" rel="stylesheet" />-->
+    <link th:href="@{/css/main.css?version=51}" rel="stylesheet" />
+  <link rel="icon" th:href="@{/images/favicons/favicon.ico}">
+  <link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png">
+  <title>Update reference</title>
+</head>
+<body>
+  <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+  <div class="content__header">
+    <label class="header__title">Reference properties</label>
+    <hr class="header__line">
+  </div>
+
+  <form class="form" id="update" th:method="POST" th:action="@{/references/{id}(id=${reference.getId()})}" th:object="${reference}">
+    <input class="postToPatch" type="hidden" name="_method" value="PATCH" />
+
+    <table class="table">
+      <thead>
+        <tr class="table__title">
+          <th>assessment id</th>
+          <th>question id</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <input class="form__input" id="id_first" type="text" th:field="*{id_first}" />
+          <div class="description">uuid</div>
+          <div class="error" th:if="${#fields.hasErrors('id_first')}" th:errors="*{id_first}">id_first error</div>
+        </td>
+        <td>
+          <input class="form__input" id="id_second" type="text" th:field="*{id_second}" />
+          <div class="description">uuid</div>
+          <div class="error" th:if="${#fields.hasErrors('id_second')}" th:errors="*{id_second}">id_second error</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </form>
+  <hr/>
+  <div class="buttons">
+    <button class="buttons__button button button--neutral" type="button">
+      <a class="button__link--woUnderscores" th:href="@{/references/{id}(id=${reference.getId()})}">Back</a>
+    </button>
+    <div class="button__link--woUnderscores">
+      <input class="buttons__button button button--positive" form="update" type="submit" value="Update" />
+    </div>
+  </div>
+    <div th:replace="~{/fragments/footer :: footer}"/>
+
+</body>
+</html>

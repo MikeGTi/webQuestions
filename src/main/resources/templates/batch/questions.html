@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:replace="~{/fragments/header :: head}"/>
+    <title>Questions batch</title>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+
+    <div class="content__header">
+        <label class="header__title">Questions batch update DB</label>
+        <hr class="header_line">
+    </div>
+
+    <div class="buttons--vertical">
+        <button class="buttons__button--vertical button button--vertical button--neutral" type="button">
+            <a class="button__link--woUnderscores" href="/questions">Back</a>
+        </button>
+        <button class="buttons__button--vertical button button--vertical button--negative" type="button">
+            <a class="button__link--woUnderscores" href="/batch/questions/questions-insert">question update DB</a>
+        </button>
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>

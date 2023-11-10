@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{/fragments/header :: head}"/>
+    <title>Registration</title>
+</head>
+<body>
+    <div th:replace="~{/fragments/navbar :: navbar-app}"/>
+    <div>
+        <form class="form" id ="new" th:method="POST" th:action="@{/users}" th:object="${user}">
+            <h2>Registration</h2>
+            <div>
+                <input type="text" path="username" placeholder="Username" autofocus="true" />
+                <errors path="username"></errors>
+                ${usernameError}
+
+                <!-- hidden fields error -->
+                <div class="error" th:if="${#fields.hasErrors('username')}"
+                                   th:errors="*{username}">username error</div>
+            </div>
+            <div>
+                <input type="password" path="password" placeholder="Password" />
+            </div>
+            <div>
+                <input type="password" path="passwordConfirm"
+                            placeholder="Confirm your password" />
+                <errors path="password"></errors>
+                ${passwordError}
+            </div>
+            <button type="submit">send</button>
+        </form>
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"/>
+</body>
+</html>
